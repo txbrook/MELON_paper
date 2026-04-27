@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Claude" version="29.6.6">
+  <diagram id="test-v2" name="Test-V2">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b1" value="Tissue" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" value="Modality 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="260" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" value="Modality 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="330" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" value="Augmentation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="310" y="140" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b5" value="Encoders" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="570" y="220" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="b6" value="NeighborhoodGAT" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="790" y="230" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b7" value="Fusion Transformer" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="140" width="310" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="b8" value="PID Loss" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="310" width="310" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b9" value="Downstream" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="160" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" style="endArrow=classic;html=1;strokeColor=#1f1f1f;" edge="1" parent="1" source="b2" target="b4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" style="endArrow=classic;html=1;strokeColor=#1f1f1f;" edge="1" parent="1" source="b4" target="b5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" style="endArrow=classic;html=1;strokeColor=#1f1f1f;" edge="1" parent="1" source="b5" target="b7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" style="endArrow=classic;html=1;strokeColor=#1f1f1f;" edge="1" parent="1" source="b7" target="b8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" style="endArrow=classic;html=1;strokeColor=#1f1f1f;" edge="1" parent="1" source="b7" target="b9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

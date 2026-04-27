@@ -1,0 +1,67 @@
+<mxfile host="Electron" agent="Claude" version="29.6.6">
+  <diagram id="melon-v7" name="V7-Second-Half">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="h5" value="(5) Fusion Transformer" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=14;fontStyle=1;fontColor=#2B6CB0;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="80" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h6" value="(6) Embeddings + PID Loss" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=14;fontStyle=1;fontColor=#2B6CB0;" vertex="1" parent="1">
+          <mxGeometry x="1520" y="80" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="h7" value="(7) Downstream" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=none;fontSize=14;fontStyle=1;fontColor=#2B6CB0;" vertex="1" parent="1">
+          <mxGeometry x="1900" y="80" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="knn" value="k-NN Graph (k=16)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="790" y="140" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ngat" value="NeighborhoodGAT (bias only, no msg passing)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="790" y="230" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bias" value="Spatial Bias A_bias (log-space, additive)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="350" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="heatmap_placeholder" value="[A_bias heatmap]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="985" y="355" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fuse_outer" value="Fusion Transformer (L=1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=13;fontStyle=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="140" width="310" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="concat" value="Concat Tokens T1 + T2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="175" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="attn" value="Attention: softmax(QK/sqrt(d) + A_bias) V" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="230" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ffn" value="FFN + LayerNorm (GQA)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="305" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fuse_eqn" value="Prop. 1: inherits PID recovery guarantee" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="405" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="z1" value="z[1] (mod-1 only)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="z2" value="z[2] (mod-2 only)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zstar" value="z[*] (joint)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1700" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="loss" value="PID-Guided Contrastive Loss: Sum InfoNCE(z[m], z[*]) recovers R+U1+U2+S" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8CECC;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="310" width="310" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="cluster" value="Leiden Clustering on z[*]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="160" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="spatial_map" value="Spatial Domain Map (k clusters)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="250" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="metrics" value="ARI / NMI / spARI vs. expert annotation" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#1f1f1f;strokeWidth=0.5;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1920" y="360" width="200" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

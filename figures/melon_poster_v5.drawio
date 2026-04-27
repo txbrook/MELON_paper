@@ -1,0 +1,25 @@
+<mxfile host="Electron" agent="Claude" version="29.6.6">
+  <diagram id="test-v5" name="Test-V5">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b1" value="Box" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#1f1f1f;strokeWidth=0.5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="callout1" value="Callout 1 dashed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF8E7;strokeColor=#B85450;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#B85450;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="490" width="360" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="callout2" value="Callout 2 dashed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF8E7;strokeColor=#B85450;strokeWidth=1;fontSize=11;fontStyle=1;fontColor=#B85450;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="490" width="310" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="box_va" value="verticalAlign top" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#1f1f1f;strokeWidth=0.5;verticalAlign=top;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="140" width="310" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" style="endArrow=classic;html=1;strokeColor=#B85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="b1" target="callout1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

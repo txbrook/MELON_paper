@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="137.66pt" height="114.48pt" viewBox="0 0 137.66 114.48" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-04-08T22:48:52.566859</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 114.48 
+L 137.66 114.48 
+L 137.66 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 1.44 113.04 
+L 113.04 113.04 
+L 113.04 1.44 
+L 1.44 1.44 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g clip-path="url(#p23ebb8d9ad)">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAJsAAACbCAYAAAB1YemMAAAEHUlEQVR4nO3d3WvWdRjH8e/ytjkhDCUyNylniMVqDc1CcXc0DwYKQRDFRAkNlQIL9ERaLvGgR+moIytSixWkIj7GskRic8ZIUEsrNssNFWP2cCCsh7u/oeuC99H7df7hOnnve3TzW11Ld1+tBH2y4dHotJRSyleXroe3zz0yJ3X79PB4eDswdiN1u6u1Kbxd+eE3qdurFs8Ob9/c+13q9i2ptfQ/GJswxiaMsQljbMIYmzDGJoyxCWNswhibMMYmjLEJY2zCGJswxiZMpaGhEh7/efPv1PHXPjoT3i5unJG6vaLnUHg7srMrdbt5XW94O7jjydTt/su/hrdvr2pL3fZlE8bYhDE2YYxNGGMTxtiEMTZhjE0YYxPG2IQxNmGMTRhjE8bYhKl8vHZRePzuqZ9Tx8eHh8PbvpEHU7eXVueHt/WTc3+jc+c3hrdtXe+kbt96193h7cRvuU+F+bIJY2zCGJswxiaMsQljbMIYmzDGJoyxCWNswhibMMYmjLEJY2zCGJswldEbN8Pj15fflzp++mL8X0C+f/TH1O0rv1wLb09Vm1O331u9MLzdOHVy6vaFc2Ph7cT1S6nbvmzCGJswxiaMsQljbMIYmzDGJoyxCWNswhibMMYmjLEJY2zCGJswda09X9Si4yuj46njfT2d4e3jrxxO3f5y+/Lw9s5pU1K373l2d3xc+zd1u/w1EZ6+sL4jddqXTRhjE8bYhDE2YYxNGGMTxtiEMTZhjE0YYxPG2IQxNmGMTRhjE8bYhKlb8tbJ8O/ZhgZ+SB1/bFlLePtyx7zU7c7uA+Ft11PxT15lHTsZ/7eZpZRyvHtZePvwpn2p275swhibMMYmjLEJY2zCGJswxiaMsQljbMIYmzDGJoyxCWNswhibMHVrPz0b/onR1o57U8dX7xkKby9+fzV1+/6WWeFt/77jqdtXj2wJbzfuP5+6Pev2+vB2c/vc1G1fNmGMTRhjE8bYhDE2YYxNGGMTxtiEMTZhjE0YYxPG2IQxNmGMTRhjE6bS9/VIePzMAzNTxx+aMz28HdzVm7rd/238d11N1fhnp0op5fm9Z8PbNQubUrcbpzWEt03VTanbvmzCGJswxiaMsQljbMIYmzDGJoyxCWNswhibMMYmjLEJY2zCGJswlVot/MWssmtoLHX8iZY7wtveBdXU7Q9eag9vB0Z/T91es2B2eHvwQu5TYTOmxn9a9XlvT+q2L5swxiaMsQljbMIYmzDGJoyxCWNswhibMMYmjLEJY2zCGJswxiaMsQlT6WxvDo/37NidOr71wKvh7R/n4/8+spRS/qktDW9vq5+Uut324mfh7bYNS1K33zjxU3i78+nW1G1fNmGMTRhjE8bYhDE2YYxNGGMTxtiEMTZhjE0YYxPG2IQxNmGMTZj/AK0Lmk2oaVlBAAAAAElFTkSuQmCC" id="image4264a003e0" transform="scale(1 -1) translate(0 -111.6)" x="1.44" y="-1.44" width="111.6" height="111.6"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="patch_3">
+    <path d="M 1.44 113.04 
+L 1.44 1.44 
+" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 113.04 113.04 
+L 113.04 1.44 
+" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 1.44 113.04 
+L 113.04 113.04 
+" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 1.44 1.44 
+L 113.04 1.44 
+" style="fill: none; stroke: #1f1f1f; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <!-- $\mathbf{X}^{(1)}$ -->
+    <g style="fill: #1f1f1f" transform="translate(118.62 10.632937) scale(0.1 -0.1)">
+     <defs>
+      <path id="Cmb10-58" d="M 184 0 
+L 184 325 
+Q 856 325 909 384 
+L 2009 2106 
+L 825 4063 
+L 269 4063 
+L 269 4391 
+L 2291 4391 
+L 2291 4063 
+L 1838 4063 
+L 2528 2919 
+L 3225 4013 
+Q 3225 4028 3158 4036 
+Q 3091 4044 3053 4044 
+Q 2872 4063 2688 4063 
+L 2688 4391 
+L 4384 4391 
+L 4384 4063 
+Q 4159 4063 3925 4053 
+Q 3691 4044 3653 4006 
+L 2741 2572 
+L 4091 325 
+L 4653 325 
+L 4653 0 
+L 2625 0 
+L 2625 325 
+L 3084 325 
+L 2222 1759 
+L 1344 378 
+Q 1344 369 1411 358 
+Q 1478 347 1509 347 
+Q 1681 325 1881 325 
+L 1881 0 
+L 184 0 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-28" d="M 1984 -1588 
+Q 1628 -1306 1370 -942 
+Q 1113 -578 948 -165 
+Q 784 247 703 697 
+Q 622 1147 622 1600 
+Q 622 2059 703 2509 
+Q 784 2959 951 3375 
+Q 1119 3791 1378 4153 
+Q 1638 4516 1984 4788 
+Q 1984 4800 2016 4800 
+L 2075 4800 
+Q 2094 4800 2109 4783 
+Q 2125 4766 2125 4744 
+Q 2125 4716 2113 4703 
+Q 1800 4397 1592 4047 
+Q 1384 3697 1257 3301 
+Q 1131 2906 1075 2482 
+Q 1019 2059 1019 1600 
+Q 1019 -434 2106 -1491 
+Q 2125 -1509 2125 -1544 
+Q 2125 -1559 2108 -1579 
+Q 2091 -1600 2075 -1600 
+L 2016 -1600 
+Q 1984 -1600 1984 -1588 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-31" d="M 594 0 
+L 594 225 
+Q 1394 225 1394 428 
+L 1394 3788 
+Q 1063 3628 556 3628 
+L 556 3853 
+Q 1341 3853 1741 4263 
+L 1831 4263 
+Q 1853 4263 1873 4245 
+Q 1894 4228 1894 4206 
+L 1894 428 
+Q 1894 225 2694 225 
+L 2694 0 
+L 594 0 
+z
+" transform="scale(0.015625)"/>
+      <path id="Cmr10-29" d="M 416 -1600 
+Q 359 -1600 359 -1544 
+Q 359 -1516 372 -1503 
+Q 1466 -434 1466 1600 
+Q 1466 3634 384 4691 
+Q 359 4706 359 4744 
+Q 359 4766 376 4783 
+Q 394 4800 416 4800 
+L 475 4800 
+Q 494 4800 506 4788 
+Q 966 4425 1272 3906 
+Q 1578 3388 1720 2800 
+Q 1863 2213 1863 1600 
+Q 1863 1147 1786 708 
+Q 1709 269 1542 -157 
+Q 1375 -584 1119 -945 
+Q 863 -1306 506 -1588 
+Q 494 -1600 475 -1600 
+L 416 -1600 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#Cmb10-58" transform="translate(0 0.235938)"/>
+     <use xlink:href="#Cmr10-28" transform="translate(79.952422 38.5) scale(0.7)"/>
+     <use xlink:href="#Cmr10-31" transform="translate(107.125273 38.5) scale(0.7)"/>
+     <use xlink:href="#Cmr10-29" transform="translate(142.125273 38.5) scale(0.7)"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p23ebb8d9ad">
+   <rect x="1.44" y="1.44" width="111.6" height="111.6"/>
+  </clipPath>
+ </defs>
+</svg>
