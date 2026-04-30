@@ -23,5 +23,9 @@
 *.swp
 *~
 
+# drawio app lock/backup files
+*.bkp
+.$*
+
 # Optional: uncomment to skip tracking compiled PDFs
 # *.pdf

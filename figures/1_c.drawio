@@ -1,0 +1,157 @@
+<mxfile host="Electron" agent="Claude">
+  <diagram id="spatial_interaction_c" name="Spatial interaction">
+    <mxGraphModel dx="870" dy="724" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1860" pageHeight="980" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" parent="1" style="text;html=1;fontSize=24;align=center;verticalAlign=middle;fontColor=#E65100;fontStyle=1" value="(c) Spatial interaction" vertex="1">
+          <mxGeometry height="35" width="1850" y="15" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================== -->
+        <!-- Left panel: Within-spot interaction -->
+        <!-- ============================================== -->
+        <mxCell id="WS_box" parent="1" style="rounded=1;arcSize=8;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;strokeWidth=1.2" value="" vertex="1">
+          <mxGeometry height="240" width="240" x="720" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="WS_title" parent="1" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;fontColor=#1A237E;fontStyle=1" value="Within-spot interaction" vertex="1">
+          <mxGeometry height="22" width="240" x="720" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WS_subtitle" parent="1" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fontColor=#000000;fontStyle=2" value="(self-attention across features)" vertex="1">
+          <mxGeometry height="18" width="240" x="720" y="102" as="geometry" />
+        </mxCell>
+
+        <!-- Single feature column (8 squares) -->
+        <mxCell id="ws1" parent="1" style="rounded=0;html=1;fillColor=#7B1FA2;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ws2" parent="1" style="rounded=0;html=1;fillColor=#E1BEE7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="ws3" parent="1" style="rounded=0;html=1;fillColor=#BA68C8;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="ws4" parent="1" style="rounded=0;html=1;fillColor=#4A148C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="ws5" parent="1" style="rounded=0;html=1;fillColor=#A5D6A7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="ws6" parent="1" style="rounded=0;html=1;fillColor=#388E3C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ws7" parent="1" style="rounded=0;html=1;fillColor=#1B5E20;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="ws8" parent="1" style="rounded=0;html=1;fillColor=#66BB6A;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="833" y="228" as="geometry" />
+        </mxCell>
+
+        <!-- Curved self-interaction arrow on the right side of the column -->
+        <mxCell id="ws_arrow" parent="1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#000000;strokeWidth=1.6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0" edge="1" source="ws7" target="ws2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="885" y="221" />
+              <mxPoint x="885" y="151" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Spot label -->
+        <mxCell id="WS_label" parent="1" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fontColor=#000000" value="Spot" vertex="1">
+          <mxGeometry height="20" width="60" x="810" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="WS_caption" parent="1" style="text;html=1;fontSize=11;align=center;verticalAlign=middle;fontColor=#616161;fontStyle=2" value="features interact within&#xa;the same spot" vertex="1">
+          <mxGeometry height="32" width="240" x="720" y="276" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================== -->
+        <!-- Right panel: Cross-spot interaction -->
+        <!-- ============================================== -->
+        <mxCell id="CS_box" parent="1" style="rounded=1;arcSize=8;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;strokeWidth=1.2" value="" vertex="1">
+          <mxGeometry height="240" width="280" x="990" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CS_title" parent="1" style="text;html=1;fontSize=15;align=center;verticalAlign=middle;fontColor=#1A237E;fontStyle=1" value="Cross-spot interaction" vertex="1">
+          <mxGeometry height="22" width="280" x="990" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CS_subtitle" parent="1" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fontColor=#000000;fontStyle=2" value="(attention across neighboring spots)" vertex="1">
+          <mxGeometry height="18" width="280" x="990" y="102" as="geometry" />
+        </mxCell>
+
+        <!-- Spot 1 column -->
+        <mxCell id="cs1_1" parent="1" style="rounded=0;html=1;fillColor=#7B1FA2;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_2" parent="1" style="rounded=0;html=1;fillColor=#E1BEE7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_3" parent="1" style="rounded=0;html=1;fillColor=#BA68C8;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_4" parent="1" style="rounded=0;html=1;fillColor=#4A148C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_5" parent="1" style="rounded=0;html=1;fillColor=#A5D6A7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_6" parent="1" style="rounded=0;html=1;fillColor=#388E3C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_7" parent="1" style="rounded=0;html=1;fillColor=#1B5E20;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="cs1_8" parent="1" style="rounded=0;html=1;fillColor=#66BB6A;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1075" y="228" as="geometry" />
+        </mxCell>
+
+        <!-- Spot 2 column -->
+        <mxCell id="cs2_1" parent="1" style="rounded=0;html=1;fillColor=#7B1FA2;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_2" parent="1" style="rounded=0;html=1;fillColor=#E1BEE7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_3" parent="1" style="rounded=0;html=1;fillColor=#BA68C8;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="158" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_4" parent="1" style="rounded=0;html=1;fillColor=#4A148C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_5" parent="1" style="rounded=0;html=1;fillColor=#A5D6A7;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="186" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_6" parent="1" style="rounded=0;html=1;fillColor=#388E3C;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_7" parent="1" style="rounded=0;html=1;fillColor=#1B5E20;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="cs2_8" parent="1" style="rounded=0;html=1;fillColor=#66BB6A;strokeColor=#FFFFFF;strokeWidth=1" value="" vertex="1">
+          <mxGeometry height="14" width="14" x="1175" y="228" as="geometry" />
+        </mxCell>
+
+        <!-- Cross arrows (X pattern, symmetric) -->
+        <mxCell id="cs_arrow1" parent="1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" source="cs1_3" target="cs2_6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cs_arrow2" parent="1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#000000;strokeWidth=1.6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" source="cs1_6" target="cs2_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Spot labels -->
+        <mxCell id="CS_lab1" parent="1" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fontColor=#000000" value="Spot 1" vertex="1">
+          <mxGeometry height="20" width="60" x="1052" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="CS_lab2" parent="1" style="text;html=1;fontSize=12;align=center;verticalAlign=middle;fontColor=#000000" value="Spot 2" vertex="1">
+          <mxGeometry height="20" width="60" x="1152" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="CS_caption" parent="1" style="text;html=1;fontSize=11;align=center;verticalAlign=middle;fontColor=#616161;fontStyle=2" value="features interact between&#xa;neighboring spots" vertex="1">
+          <mxGeometry height="32" width="280" x="990" y="276" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

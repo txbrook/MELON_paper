@@ -59,13 +59,25 @@
   UTHealth Houston \\
   \texttt{yuchen.zhang@uth.tmc.edu} \\
   \And
-  Yu~Shen \\
-  MD Anderson Cancer Center \\
-  \texttt{yshen@mdanderson.org} \\
-  \AND
   Chunru~Lin \\
   MD Anderson Cancer Center \\
   \texttt{clin2@mdanderson.org} \\
+  \And
+  Liuqing~Yang \\
+  MD Anderson Cancer Center \\
+  \texttt{lyang7@mdanderson.org} \\
+  \AND
+  Manu~Sebastian \\
+  MD Anderson Cancer Center \\
+  \texttt{mmsebastian@mdanderson.org} \\
+  \And
+  Yuying~Xie \\
+  Michigan State University \\
+  \texttt{xyy@msu.edu} \\
+  \And
+  Yu~Shen \\
+  MD Anderson Cancer Center \\
+  \texttt{yshen@mdanderson.org} \\
   \And
   Lulu~Shang \\
   MD Anderson Cancer Center \\
@@ -93,7 +105,14 @@ More recently, graph-based and deep multimodal models have become the dominant p
 
 However, existing spatial multimodal clustering methods mainly optimize for a shared latent representation under spatial smoothness priors, but often fail to preserve modality-specific and cross-modal synergistic signals. In spatial multi-omics, this is a substantial limitation: spots with similar transcriptomes can differ in chromatin accessibility, protein abundance, or tissue morphology, reflecting distinct regulatory programs, signaling states, or microenvironmental contexts. For example, accessible enhancers may indicate lineage priming before RNA changes are detectable, protein levels may reflect post-transcriptional regulation not captured by gene expression, and histology may reveal stromal or immune tissue structure only weakly correlated with molecular profiles. As a result, methods that prioritize consensus structure can collapse biologically distinct spots into the same cluster. In previous methods, most existing objectives are based on alignment, reconstruction, or shared embedding and therefore emphasize redundant information, and modality interactions in tissue are often spatially dependent, becoming informative only in the context of local cellular neighborhoods.
 
-To address this problem, we propose MELON (Multi-modal lEarning framework for spatial muLti-Omics integratioN), a spatially aware framework for clustering paired multimodal spatial data while preserving shared, modality-specific, and importantly, synergistic information. MELON first applies modality-specific encoders to each molecular or imaging modality, allowing each modality to retain its own structure and noise characteristics. It then uses a neighborhood-aware graph attention module to encode local tissue organization and learn which neighboring spots are most informative for each location. These embeddings are projected into a common latent space and fused with a transformer that models higher-order nonlinear dependencies across modalities. To reduce spurious neighborhood effects, MELON injects learned spatial attention weights as an adaptive bias into the fusion process. Finally, it uses a partial information decomposition (PID)-guided~\cite{williams2010nonnegative,bertschinger2014quantifying} multi-modality contrastive objective (built on multi-modality contrastive learning~\cite{tian2020contrastive} and the modality-masked PID-aware loss of~\cite{dufumier2024align}) over unimodal and multimodal masked inputs to encourage the learned representation to retain redundant, unique, and synergistic signal rather than collapsing to what the modalities share. This provides embeddings that preserve shared, modality-specific, and synergistic information, better resolve spatial regions supported by complementary signals across modalities.
+To address this problem, we propose MELON (Multi-modal lEarning framework for spatial muLti-Omics integratioN), a spatially aware framework for clustering paired multimodal spatial data while preserving shared, modality-specific, and importantly, synergistic information. MELON first applies modality-specific encoders to each molecular or imaging modality, allowing each modality to retain its own structure and noise characteristics. It then uses a neighborhood-aware graph attention module to encode local tissue organization and learn which neighboring spots are most informative for each location. These embeddings are projected into a common latent space and fused with a transformer that models higher-order nonlinear dependencies across modalities. To reduce spurious neighborhood effects, MELON injects learned spatial attention weights as an adaptive bias into the fusion process. Finally, it uses a partial information decomposition (PID)-guided~\cite{williams2010nonnegative,bertschinger2014quantifying} multi-modality contrastive objective (built on multi-modality contrastive learning~\cite{tian2020contrastive} and the modality-masked PID-aware loss of~\cite{dufumier2024align}) over unimodal and multimodal masked inputs to encourage the learned representation to retain redundant, unique, and synergistic signal rather than collapsing to what the modalities share. This provides embeddings that preserve shared, modality-specific, and synergistic information, better resolve spatial regions supported by complementary signals across modalities. Figure~\ref{fig:overview} summarizes the spatial multi-omics task, MELON's spatial interaction and PID-guided fusion modules, and example downstream applications.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\linewidth]{figures/figure_1_preview.png}
+\caption{Overview of MELON. (a) Spatial multi-omics task: paired modality measurements (e.g., gene expression with chromatin accessibility or protein) on a tissue section, together with 2D spatial coordinates. (b) Spatial interaction: NeighborhoodGAT learns within-spot and cross-spot attention to encode local tissue organization and produce a learned spatial attention bias. (c) Learning PID information: a fusion transformer combined with a PID-guided multi-modality contrastive objective preserves shared, modality-specific, and synergistic signals across modalities. (d) Examples of downstream applications, including spatial domain clustering, visualization, and marker/feature analysis.}
+\label{fig:overview}
+\end{figure}
 
 We evaluate MELON on paired spatial multimodal datasets spanning molecular--molecular and molecular--image settings, measuring clustering accuracy, spatial coherence, robustness across modality combinations, and biological interpretability. Our contributions are:
 \begin{itemize}
@@ -348,7 +367,7 @@ We next assessed how well each method recovered the annotated anatomy. We applie
 \centering
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/imported/regenerated/mouse_E15_brain_panelC.pdf}
+    \includegraphics[width=\linewidth]{figures/mouse_E15_brain_panelC.pdf}
     \caption{H\&E image, ground-truth annotation, and spatial domain assignments from all eight benchmarked methods (ARI labelled per panel; methods ordered consistently across datasets).}
     \label{fig:dataset1_panel_c}
 \end{subfigure}
@@ -356,7 +375,7 @@ We next assessed how well each method recovered the annotated anatomy. We applie
 \vspace{0.6ex}
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=0.90\linewidth]{figures/imported/regenerated/mouse_E15_brain_panelD.pdf}
+    \includegraphics[width=0.90\linewidth]{figures/mouse_E15_brain_panelD.pdf}
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=12$.}
     \label{fig:dataset1_panel_d}
 \end{subfigure}
@@ -745,7 +764,7 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
 \centering
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/imported/regenerated/human_lymph_node_panelC.pdf}
+    \includegraphics[width=\linewidth]{figures/human_lymph_node_panelC.pdf}
     \caption{H\&E image, ground-truth annotation, and spatial domain assignments from all eight benchmarked methods (ARI labelled per panel; methods ordered consistently across datasets).}
     \label{fig:dataset2_panel_c}
 \end{subfigure}
@@ -753,7 +772,7 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
 \vspace{0.6ex}
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=0.90\linewidth]{figures/imported/regenerated/human_lymph_node_panelD.pdf}
+    \includegraphics[width=0.90\linewidth]{figures/human_lymph_node_panelD.pdf}
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=10$.}
     \label{fig:dataset2_panel_d}
 \end{subfigure}
@@ -765,7 +784,7 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
 \centering
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/imported/regenerated/mouse_embryo_panelC.pdf}
+    \includegraphics[width=\linewidth]{figures/mouse_embryo_panelC.pdf}
     \caption{H\&E image, ground-truth annotation, and spatial domain assignments from all eight benchmarked methods (ARI labelled per panel; methods ordered consistently across datasets).}
     \label{fig:dataset3_panel_c}
 \end{subfigure}
@@ -773,7 +792,7 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
 \vspace{0.6ex}
 \begin{subfigure}[b]{0.98\textwidth}
     \centering
-    \includegraphics[width=0.90\linewidth]{figures/imported/regenerated/mouse_embryo_panelD.pdf}
+    \includegraphics[width=0.90\linewidth]{figures/mouse_embryo_panelD.pdf}
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=14$.}
     \label{fig:dataset3_panel_d}
 \end{subfigure}
@@ -785,21 +804,21 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k12_e15.png}
+\includegraphics[width=0.72\textwidth]{figures/benchmarking_metrics_k12_e15.png}
 \caption{Appendix benchmark-over-$k$ metrics for the Mouse E15.5 brain dataset.}
 \label{fig:app-dataset1-metrics}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k10_human_lymph.png}
+\includegraphics[width=0.72\textwidth]{figures/benchmarking_metrics_k10_human_lymph.png}
 \caption{Appendix benchmark-over-$k$ metrics for the Human lymph node dataset.}
 \label{fig:app-dataset2-metrics}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k14_mouse_embryo.png}
+\includegraphics[width=0.72\textwidth]{figures/benchmarking_metrics_k14_mouse_embryo.png}
 \caption{Appendix benchmark-over-$k$ metrics for the Mouse E13 embryo dataset.}
 \label{fig:app-dataset3-metrics}
 \end{figure}
@@ -812,7 +831,7 @@ We sweep the spatial graph size $k \in \{1, 2, 4, 8, 16, 32\}$ on the simulation
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.9\textwidth]{figures/imported/regenerated/fig_neighbor_k_sensitivity.png}
+\includegraphics[width=0.9\textwidth]{figures/fig_neighbor_k_sensitivity.png}
 \caption{Sensitivity of MELON to the number of spatial neighbors $k$ on the simulation benchmark. Bars show balanced accuracy (mean $\pm$ std over seeds) for probing the shared label $Y$, modality-specific factors $R$ and $U$, and the common signal $C$, at $k \in \{1, 2, 4, 8, 16, 32\}$. Recovery of $R$, $U$, and $C$ is saturated across all $k$, and $Y$ accuracy varies by less than $0.07$ across a $32\times$ range of neighborhood sizes.}
 \label{fig:app-neighbor-k-sensitivity}
 \end{figure}
@@ -865,21 +884,21 @@ For each dataset we show four high-variance factors with their top gene and top 
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/imported/regenerated/mouse_e15_brain_decoder_factors.pdf}
+\includegraphics[width=0.96\textwidth]{figures/mouse_e15_brain_decoder_factors.pdf}
 \caption{Mouse E15.5 brain. Spatial usage of four MELON decoder factors with the top gene and top ATAC peak (chromosomal coordinate, abbreviated to \texttt{chrN:Mb}) shown above each panel. Color is per-factor robust-clipped (5--95\%) usage from the 24-factor pair decoder.}
 \label{fig:e15-decoder-factors}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/imported/regenerated/human_lymph_decoder_factors.pdf}
+\includegraphics[width=0.96\textwidth]{figures/human_lymph_decoder_factors.pdf}
 \caption{Human lymph node. Spatial usage of four MELON decoder factors, with the top gene for each factor shown. The dominant protein loading collapses to KRT5 across all factors, but the per-spot factor usage still cleanly separates anatomical compartments.}
 \label{fig:hln-decoder-factors}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/imported/regenerated/mouse_embryo_decoder_factors.pdf}
+\includegraphics[width=0.96\textwidth]{figures/mouse_embryo_decoder_factors.pdf}
 \caption{Mouse E13 embryo. Spatial usage of four MELON decoder factors with the top gene--peak pair shown above each panel. Each factor concentrates in a distinct anatomical region, demonstrating that the frozen embedding can be decoded into spatially coherent joint RNA/ATAC programs.}
 \label{fig:embryo-decoder-factors}
 \end{figure}
@@ -889,21 +908,21 @@ As an additional perspective we select six gene--peak pairs per dataset from the
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/imported/regenerated/mouse_e15_brain_decoder_pair_maps.png}
+\includegraphics[width=0.75\textwidth]{figures/mouse_e15_brain_decoder_pair_maps.png}
 \caption{Mouse E15.5 brain. Spatial maps for six high-support gene--peak pairs from the decoder. Each row is one pair; columns show (left) RNA expression of the gene, (centre) ATAC accessibility of the peak, and (right) the decoder's joint pair activity. Top pairs include \emph{Prdm8}, \emph{Uncx}, and \emph{Ednrb}, all known developmental transcription factors / receptors.}
 \label{fig:e15-decoder-pairs}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/imported/regenerated/human_lymph_decoder_pair_maps.png}
+\includegraphics[width=0.75\textwidth]{figures/human_lymph_decoder_pair_maps.png}
 \caption{Human lymph node. Spatial maps for six high-support gene--protein pairs from the decoder. Each row is one pair; columns show (left) RNA expression of the gene, (centre) protein (ADT) abundance of the marker, and (right) the decoder's joint pair activity. Selected pairs include canonical immune markers \emph{FCGR3A} (CD16), \emph{CD274} (PD-L1), \emph{SDC1} (CD138, plasma cell), and \emph{PAX5} (B-cell lineage).}
 \label{fig:hln-decoder-pairs}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/imported/regenerated/mouse_embryo_decoder_pair_maps.png}
+\includegraphics[width=0.75\textwidth]{figures/mouse_embryo_decoder_pair_maps.png}
 \caption{Mouse E13 embryo. Spatial maps for six high-support gene--peak pairs from the decoder. Each row is one pair; columns show (left) RNA expression of the gene, (centre) ATAC accessibility of the peak, and (right) the decoder's joint pair activity across all spots.}
 \label{fig:embryo-decoder-pairs}
 \end{figure}
@@ -919,14 +938,14 @@ Figure~\ref{fig:exploratory-ccrcc} shows the same comparison on the renal tumour
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/imported/regenerated/human_hippocampus_exploratory_panel.pdf}
+\includegraphics[width=0.95\textwidth]{figures/human_hippocampus_exploratory_panel.pdf}
 \caption{Human hippocampus (RNA + ATAC, 2{,}500 spots). Spatial domain assignments from MELON and seven multimodal baselines, each at its natural Leiden resolution ($k$ shown above each panel). No per-spot annotation exists for this sample; panel colours are per-method cluster ids and are not aligned across panels.}
 \label{fig:exploratory-hippocampus}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/imported/regenerated/ccRCC_Y7_T_exploratory_panel.pdf}
+\includegraphics[width=0.95\textwidth]{figures/ccRCC_Y7_T_exploratory_panel.pdf}
 \caption{Clear-cell renal cell carcinoma sample Y7\_T (RNA + DNA methylation, 2{,}926 spots). Spatial domain assignments from MELON and seven multimodal baselines at $k{=}16$. Methylation is not a modality directly supported by the baselines; they were run on RNA + a continuous secondary input as a rough analogue. No per-spot annotation exists for this sample; panel colours are per-method cluster ids and are not aligned across panels.}
 \label{fig:exploratory-ccrcc}
 \end{figure}
@@ -1032,14 +1051,14 @@ The synergy label $Y$ shows no obvious spatial pattern, confirming that it canno
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.55\textwidth]{figures/imported/regenerated/sim_spatial_heatmaps.pdf}
+\includegraphics[width=0.55\textwidth]{figures/sim_spatial_heatmaps.pdf}
 \caption{Spatial distribution of latent variables on the $44\times44$ simulation grid. Region label $R$ forms coarse Voronoi domains; the modality-specific attributes $U$ and $C$ are fine-grained with weak region bias; the synergy label $Y$ shows no apparent spatial structure (orange = $Y{=}1$).}
 \label{fig:spatial-heatmaps}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/imported/regenerated/sim_method_comparison.pdf}
+\includegraphics[width=0.85\textwidth]{figures/sim_method_comparison.pdf}
 \caption{Method comparison on synergy label $Y$ (balanced accuracy, best probe per method, 5-fold CV). MELON (full) is the only method that meaningfully exceeds chance, while every simple baseline and external multi-omics method stays at or below $0.58$. The \emph{no-space} MELON ablation (lighter accent) collapses to baseline level, showing that the gain depends on spatial conditioning rather than fusion alone. Visualizes the numbers in Table~\ref{tab:sim-phase2}.}
 \label{fig:sim-results}
 \end{figure}
@@ -1138,7 +1157,7 @@ Coords + neighborhood     & RF     & $0.513 \pm 0.021$ \\
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/imported/regenerated/sim_ablation.pdf}
+\includegraphics[width=0.75\textwidth]{figures/sim_ablation.pdf}
 \caption{Ablation on synergy label $Y$ (balanced accuracy, 5-fold CV). Bars are coloured by ablation axis. Removing the fusion block or the spatial bias each collapses performance to near chance, while augmentation contributes a smaller but consistent gain.}
 \label{fig:ablation-full}
 \end{figure}
