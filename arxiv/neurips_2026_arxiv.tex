@@ -356,6 +356,7 @@ Variant & BalAcc & $\Delta$ BalAcc & AUROC \\
 \end{table}
 
 \subsection{Main Performance}
+\raggedbottom
 We evaluate MELON on three paired spatial multimodal datasets covering both molecular--molecular and molecular--protein settings, and compare against seven strong baselines (Seurat, SpatialGlue, TotalVI, MOFA+, MEFISTO, MISO, MultiGate). The benchmarks are (i) a \emph{Mouse E15.5 brain} sagittal cryosection profiled with MISAR-seq~(\href{https://www.nature.com/articles/s41592-023-01884-1}{MISAR-seq}) for paired RNA--ATAC, with anatomy spanning DPallm/DPallv, midbrain, hindbrain, thalamus, diencephalon, subpallium, cartilage, muscle, skull, mesenchyme, and cerebellar vermis (Fig.~\ref{fig:dataset1_panel_c}); (ii) a \emph{Human lymph node} 10x Visium RNA--ADT co-profile ($3{,}484$ spots; $18{,}085$ genes; $31$ proteins) annotated for lymphoid follicles, paracortex/T-cell zone, medulla, and capsule (Appendix Fig.~\ref{fig:dataset2_panel_c}); and (iii) a \emph{Mouse E13 embryo} whole-section RNA--ATAC profile ($2{,}187$ spots; $17{,}058$ genes; $24{,}017$ ATAC peaks) annotated for $14$ regions covering neural tissues (forebrain, midbrain, hindbrain/spinal cord, periventricular neuroepithelium), mesenchyme (paraxial, head, dorsal, trunk), surface ectoderm, ventral and caudal trunk, gut/ventral endoderm, eye, and visceral organ primordia (Appendix Fig.~\ref{fig:dataset3_panel_c}). We score each method's spatial domains against the curated annotations using ARI, NMI, AMI, Homogeneity, V-Measure, FMI, Jaccard, Purity, the spatial-aware SpRI/SpARI, and the Calinski--Harabasz index (CHI).
 
 \begin{figure*}[!t]
@@ -426,6 +427,7 @@ Dataset & Method & ARI & NMI & AMI & Homog. & V-Meas. & SpRI & SpARI & FMI & Jac
 \end{tabular}}
 \end{table}
 
+\flushbottom
 \subsubsection{Interpretability via a Joint Pair Decoder}
 To probe whether MELON's frozen embedding admits a biologically meaningful joint factorisation~\cite{doshivelez2017rigorous,rudin2019stop}, we train a small \emph{pair decoder} on top of the frozen fused embedding $\mathbf{z}_i$ for each of the three datasets. This follows the post-hoc probing paradigm for interpreting frozen representations~\cite{alain2017probes}, instantiated as a post-hoc concept-bottleneck decoder~\cite{koh2020concept,yuksekgonul2023pcbm,svensson2020ldvae} in which each latent factor is directly read out as a gene/peak program. The decoder is a two-headed MLP with a non-negative factor bottleneck $\mathbf{u}_i = \mathrm{softplus}(\phi(\mathbf{z}_i)) \in \mathbb{R}_{\geq 0}^{K}$ (non-negativity promotes parts-based, additive programs as in NMF~\cite{lee1999nmf}) ($K{=}24$ for the two RNA--ATAC datasets, $K{=}16$ for the RNA--ADT lymph node) and two linear heads that simultaneously reconstruct the two modalities under a coupled loss
 \begin{equation}\label{eq:pair-decoder-main}
