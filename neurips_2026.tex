@@ -376,7 +376,7 @@ We evaluate MELON on three paired spatial multimodal datasets covering both mole
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=12$.}
     \label{fig:dataset1_panel_d}
 \end{subfigure}
-\caption{Mouse E15.5 brain results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods. Benchmark-over-$k$ curves are provided in Appendix~\ref{fig:app-dataset1-metrics}.}
+\caption{Mouse E15.5 brain results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods.}
 \label{fig:dataset1_results}
 \end{figure*}
 \FloatBarrier
@@ -385,7 +385,7 @@ We evaluate MELON on three paired spatial multimodal datasets covering both mole
 Aggregating across the swept cluster numbers $k$ (median~$\pm$~IQR; Table~\ref{tab:multimethod_metrics}), MELON attains the best median on \emph{all 11 metrics} for the Mouse E15.5 brain (e.g., ARI $0.480 \pm 0.022$ vs.\ next-best MultiGate $0.344 \pm 0.025$); on \emph{9 of 11} for the Human lymph node (ARI $0.298 \pm 0.028$ vs.\ MISO $0.241 \pm 0.046$, with SpatialGlue narrowly leading homogeneity and MISO leading FMI); and on \emph{10 of 11} for the Mouse E13 embryo (ARI $0.385 \pm 0.007$ vs.\ SpatialGlue $0.280 \pm 0.014$, with Seurat winning only the internal-compactness CHI). Visually, MELON produces sharper anatomical boundaries and reduced cross-region mixing than every baseline---most clearly at the DPallm/DPallv, subpallium/thalamus, and midbrain/hindbrain interfaces in the brain (Fig.~\ref{fig:dataset1_panel_c}), the follicle/T-cell-zone and medulla/capsule interfaces in the lymph node (Appendix Fig.~\ref{fig:dataset2_panel_c}), and the neural/mesenchymal contacts in the embryo (Appendix Fig.~\ref{fig:dataset3_panel_c}).
 
 \textbf{Robustness across $k$ and clustering backend.}
-MELON's lead is stable across the swept cluster numbers: the per-method metric-versus-$k$ curves in Appendix Figs.~\ref{fig:app-dataset1-metrics}, \ref{fig:app-dataset2-metrics}, and~\ref{fig:app-dataset3-metrics} keep MELON at or near the top across the full $k$ range, with tighter IQR than every multimodal baseline. On the lymph node we further verified that swapping the downstream clustering backend on the frozen MELON embedding (GMM, Leiden, Louvain, Spectral, Walktrap) preserves the lead, and on the embryo we swept the spatial-graph neighborhood $k_{\mathrm{nn}}\in[4,11]$ with MELON remaining the top-performing approach throughout (Appendix~\ref{app:extra-exp}).
+MELON's lead is stable across the swept cluster numbers: in Table~\ref{tab:multimethod_metrics} MELON sits at or near the top of every metric across the full $k$ range, with tighter IQR than every multimodal baseline. On the lymph node we further verified that swapping the downstream clustering backend on the frozen MELON embedding (GMM, Leiden, Louvain, Spectral, Walktrap) preserves the lead, and on the embryo we swept the spatial-graph neighborhood $k_{\mathrm{nn}}\in[4,11]$ with MELON remaining the top-performing approach throughout (Appendix~\ref{app:extra-exp}).
 
 \begin{table}[H]
 \centering
@@ -769,7 +769,7 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=10$.}
     \label{fig:dataset2_panel_d}
 \end{subfigure}
-\caption{Human lymph node results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods. Benchmark-over-$k$ curves are provided in Appendix~\ref{fig:app-dataset2-metrics}.}
+\caption{Human lymph node results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods.}
 \label{fig:dataset2_results}
 \end{figure}
 
@@ -789,31 +789,8 @@ where $\mathrm{RI}$ is the Rand index and $\mathrm{RI}_{\text{rand}}$ is its exp
     \caption{Clustering metrics (ARI, NMI, Homogeneity, V-Measure, AMI) across all eight methods at $k=14$.}
     \label{fig:dataset3_panel_d}
 \end{subfigure}
-\caption{Mouse E13 embryo results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods. Benchmark-over-$k$ curves are provided in Appendix~\ref{fig:app-dataset3-metrics}.}
+\caption{Mouse E13 embryo results. (a) H\&E tissue image, ground-truth annotation, and spatial domain assignments from MELON and seven multimodal baselines (per-panel ARI). (b) Five clustering metrics across all eight methods.}
 \label{fig:dataset3_results}
-\end{figure}
-
-\subsection{Benchmarking Metrics Across Methods}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k12_e15.png}
-\caption{Appendix benchmark-over-$k$ metrics for the Mouse E15.5 brain dataset.}
-\label{fig:app-dataset1-metrics}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k10_human_lymph.png}
-\caption{Appendix benchmark-over-$k$ metrics for the Human lymph node dataset.}
-\label{fig:app-dataset2-metrics}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=0.72\textwidth]{figures/imported/test_score/benchmarking_metrics_k14_mouse_embryo.png}
-\caption{Appendix benchmark-over-$k$ metrics for the Mouse E13 embryo dataset.}
-\label{fig:app-dataset3-metrics}
 \end{figure}
 
 \subsection{Sensitivity Analysis}
