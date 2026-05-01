@@ -613,7 +613,14 @@ Group & Hyperparameter & Value \\
 \section{Proof of Proposition~\ref{prop:pid-inheritance}}\label{app:proof}
 
 \begin{proposition}[PID inheritance under spatial bias]\label{prop:pid-inheritance}
-Let $f_\theta$ be an encoder satisfying the standard expressivity assumption (Assumption~\ref{ass:expressivity}), and let $B$ be any spatial-bias matrix injected as an additive term in $f_\theta$'s attention scores (\S\ref{subsec:neighgat}--\S\ref{subsec:fusion-transformer}). Suppose the augmentation family $\mathcal{T}$ used to draw the two augmented inputs $X', X''$ is label-preserving with respect to the latent spatial-domain identity $Y$ (Eq.~\ref{eq:assumption1}). Then at the supremum $\mathcal{L}_{\mathrm{MELON}}$ decomposes across the four PID quantities $\{R, S, U_1, \ldots, U_n\}$ through its joint and modality-masked terms: the joint term $\mathcal{L}_{\star}$ aligns the joint embedding with $R + S + \sum_{m=1}^{n} U_m$, each modality-masked term $\mathcal{L}_{m}$ aligns the modality-$m$ embedding with $R + U_m$, and each individual PID component is therefore identifiable from linear combinations of these loss-term optima.
+Let $f_\theta$ be an encoder satisfying the expressivity and minimal-sufficiency assumptions (Assumptions~\ref{ass:expressivity}--\ref{ass:minimal-suff}), and let $B$ be any spatial-bias matrix injected as an additive term in $f_\theta$'s attention scores (\S\ref{subsec:neighgat}--\S\ref{subsec:fusion-transformer}). Suppose the augmentation family $\mathcal{T}$ used to draw the two augmented inputs $X', X''$ is label-preserving with respect to the latent spatial-domain identity $Y$ (Eq.~\ref{eq:assumption1}). Writing $\mathcal{L}_{\star}^{*} = -\sup_{\theta}\mathcal{L}_{\star}$ and $\mathcal{L}_{m}^{*} = -\sup_{\theta}\mathcal{L}_{m}$, the joint and modality-masked supremum-optima of $\mathcal{L}_{\mathrm{MELON}}$ satisfy the linear system
+\begin{equation}\label{eq:identif-system}
+\begin{cases}
+\mathcal{L}_{\star}^{*} \;=\; R + S + \sum_{m=1}^{n} U_m, \\[2pt]
+\mathcal{L}_{m}^{*} \;=\; R + U_m, \qquad m = 1, \ldots, n,
+\end{cases}
+\end{equation}
+which has rank $n+1$ in $\mathbb{R}^{n+2}$ with one-dimensional null direction $(\delta R, \delta S, \delta U_1, \ldots, \delta U_n) = \bigl(\lambda,\, (n-1)\lambda,\, -\lambda,\, \ldots,\, -\lambda\bigr)$. The four PID quantities $\{R, S, U_1, \ldots, U_n\}$ are therefore identified from $\{\mathcal{L}_{\star}^{*}, \mathcal{L}_{1}^{*}, \ldots, \mathcal{L}_{n}^{*}\}$ up to a single linear normalisation (e.g.\ $\min_m U_m = 0$).
 \end{proposition}
 
 \paragraph{Setup.} Let $X = (X^{(1)}, \ldots, X^{(n)})$ be a multimodal input, $Y$ a latent task variable, and $f_\theta : \mathcal{X} \to \mathcal{Z}$ an encoder. Let $\mathcal{T}^\star$ be a label-preserving augmentation family in the sense of~\citet{tian2020what}: two independent views $t'(X), t''(X)$ drawn from $\mathcal{T}^\star$ are jointly sufficient and minimal for $Y$, equivalently
@@ -639,6 +646,14 @@ and the chain rule of mutual information gives the consistency relations~\citep{
 
 \begin{assumption}[Expressivity of $f_\theta$]\label{ass:expressivity}
 The encoder family $\{f_\theta\}_\theta$ is sufficiently rich that $\sup_\theta I(f_\theta(V); W) = I(V; W)$ for every pair of random variables $(V, W)$ appearing in the proof; equivalently, the supremum is attained by an $f_\theta$ that is a sufficient statistic of $V$ for $W$. (We use $V, W$ as generic placeholders to avoid clash with the spatial-bias matrix $B$.) This is the standard expressivity hypothesis used in neural mutual-information estimation~\citep{oord2018representation,tian2020contrastive}.
+\end{assumption}
+
+\begin{assumption}[Minimal sufficiency at the supremum]\label{ass:minimal-suff}
+Among the encoders attaining the supremum in Step~1 below, we restrict attention to those whose joint embedding $Z_\theta = f_\theta(X')$ is a \emph{minimal} sufficient statistic of $X'$ for $Y$: any sufficient statistic of $X'$ for $Y$ factors through $Z_\theta$. Equivalently, $Z_\theta$ retains no $Y$-irrelevant content, so that
+\begin{equation}\label{eq:min-suff}
+  I(W;\, Z_\theta) \;=\; I(W;\, Y) \qquad \text{for every random variable } W \text{ appearing in the proof.}
+\end{equation}
+This is the standard compression refinement of the InfoNCE optimum~\citep{tian2020what,federici2020learning} and ensures that the substitution $Z_\theta \leftrightarrow Y$ in MI computations is exact.
 \end{assumption}
 
 \paragraph{Proof.}
@@ -687,7 +702,7 @@ Consider the Markov chain $Y \to X^{(m)} \to X^{[m]} \to Z^{[m]}_\theta$, since 
   \;&=\; \sup_{\theta}\, I\bigl(Z^{[m]}_\theta;\, Z_\theta\bigr)
     && \text{[\citealp{oord2018representation}, Assumption~\ref{ass:expressivity}]} \\
   \;&=\; \sup_{\theta}\, I\bigl(Z^{[m]}_\theta;\, Y\bigr)
-    && \text{[Step 1: at the supremum $Z_\theta$ is a sufficient statistic of $Y$]} \\
+    && \text{[Assumption~\ref{ass:minimal-suff}, Eq.~\eqref{eq:min-suff} with $W = Z^{[m]}_\theta$]} \\
   \;&=\; I\bigl(X^{(m)};\, Y\bigr)
     && \text{[data processing inequality, Assumption~\ref{ass:expressivity}]} \\
   \;&=\; R + U_m
@@ -697,7 +712,7 @@ Consider the Markov chain $Y \to X^{(m)} \to X^{[m]} \to Z^{[m]}_\theta$, since 
 Note that this chain does not invoke the label-preservation hypothesis~\eqref{eq:assumption1}; the symmetric augmentation in MELON ($Z'^{[m]}_\theta, Z''^{[m]}_\theta$ both deterministic functions of $X^{(m)}$ via $t \in \mathcal{T}^\star$) leaves it unaffected, since the masked input depends on modality $m$ alone regardless of the augmentation applied.
 
 \textbf{Step 3: the spatial bias preserves both chains.}
-The bias $B$ enters $f_\theta$ only as an additive term in the attention logits, $\mathrm{Attn}(Q, K, V) = \mathrm{softmax}\bigl(QK^\top/\sqrt{d_k} + B\bigr)V$, and $B$ is computed solely from the spatial coordinates $S$ via NeighborhoodGAT (\S\ref{subsec:neighgat}), independently of the per-modality features $X^{(1)}, \ldots, X^{(n)}$. Conditioned on $S$, the bias $B$ is therefore a fixed observed covariate and $f_\theta(\,\cdot\,;\, B)$ is a deterministic function of $X$. The Markov chains of Steps~1 and~2 hold conditionally on $S$, so the chains~\eqref{eq:step1-chain} and~\eqref{eq:step2-chain} carry through under $f_\theta \mapsto f_\theta(\,\cdot\,;\, B)$.
+The bias $B$ enters $f_\theta$ only as an additive term in the attention logits, $\mathrm{Attn}(Q, K, V) = \mathrm{softmax}\bigl(QK^\top/\sqrt{d_k} + B\bigr)V$, and $B$ is computed solely from the spatial coordinates $\Omega$ via NeighborhoodGAT (\S\ref{subsec:neighgat}), independently of the per-modality features $X^{(1)}, \ldots, X^{(n)}$ (here $\Omega$ denotes spatial coordinates, not to be confused with the PID synergy $S$). Conditioned on $\Omega$, the bias $B$ is therefore a fixed observed covariate and $f_\theta(\,\cdot\,;\, B)$ is a deterministic function of $X$. The Markov chains of Steps~1 and~2 hold conditionally on $\Omega$, so the chains~\eqref{eq:step1-chain} and~\eqref{eq:step2-chain} carry through under $f_\theta \mapsto f_\theta(\,\cdot\,;\, B)$.
 
 \textbf{Conclusion.} Substituting Steps~1 and~2 into Eq.~\eqref{eq:melon-loss-restate},
 \begin{equation}\label{eq:final}
@@ -708,12 +723,12 @@ The bias $B$ enters $f_\theta$ only as an additive term in the attention logits,
     \sum_{m=1}^{n} \underbrace{\bigl(R + U_m\bigr)}_{\text{Step 2: } \mathcal{L}_{m}}
   \Biggr].
 \end{equation}
-Each of the four PID components $R$, $S$, $U_1, \ldots, U_n$ appears as the optimum of a distinct term of $\mathcal{L}_{\mathrm{MELON}}$. \qed
+Reading off the per-term optima yields the linear system in Eq.~\eqref{eq:identif-system}, which has rank $n+1$ in $\mathbb{R}^{n+2}$ and identifies the four PID components $\{R, S, U_1, \ldots, U_n\}$ up to a single normalisation. \qed
 
 \paragraph{Where the assumptions can fail in practice.}
 Two assumptions of Proposition~\ref{prop:pid-inheritance} can be violated in real spatial multi-omics data.
 
-\emph{(i) Expressivity of $f_\theta$.} Assumption~\ref{ass:expressivity} requires the supremum of the InfoNCE bound~\eqref{eq:infoNCE} to be attained, i.e.\ $f_\theta$ is expressive enough to saturate the InfoNCE bound. In practice, MELON uses a single fusion-transformer layer with embedding width $128$, so the supremum is replaced by a stationary point of finite-capacity neural optimisation. The recovered information is therefore a lower bound on the four PID components rather than an exact match. This caveat is shared by every neural mutual-information estimator~\citep{oord2018representation,tian2020contrastive}.
+\emph{(i) Expressivity and minimal sufficiency of $f_\theta$.} Assumption~\ref{ass:expressivity} requires the supremum of the InfoNCE bound~\eqref{eq:infoNCE} to be attained, and Assumption~\ref{ass:minimal-suff} further restricts attention to a minimal sufficient statistic so that Eq.~\eqref{eq:min-suff} holds with equality. In practice, MELON uses a single fusion-transformer layer with embedding width $128$, so the supremum is replaced by a stationary point of finite-capacity neural optimisation, and minimality is approximate rather than exact. Both restrictions degrade the loss-system in Eq.~\eqref{eq:identif-system} from equalities to inequalities $\mathcal{L}_{\star}^{*} \le R + S + \sum_{m} U_m$ and $\mathcal{L}_{m}^{*} \le R + U_m$, so the recovered components are lower bounds on the true PID values. This caveat is shared by every neural mutual-information estimator~\citep{oord2018representation,tian2020contrastive}.
 
 \emph{(ii) Approximate label-preservation of $\mathcal{T}$.} The strict equality~\eqref{eq:assumption1} is unlikely to hold for any finite augmentation family. The augmentations used in MELON (Gaussian noise, Bernoulli dropout, aligned cross-spot mixing) are only \emph{approximately} label-preserving with respect to the latent spatial-domain identity $Y$. We expect $I(X, t(X)) \approx I(X, Y)$ in this setting because (a) Gaussian noise and feature dropout are weak perturbations that rarely cross spatial-domain boundaries, and (b) cross-spot mixing is modulated by a small $\lambda \sim \mathrm{Beta}(0.3, 0.3)$, so the perturbed input is still dominated by the original spot's signal. The conclusion~\eqref{eq:final} should therefore be read as ``approximately recovers the four PID components, with the approximation tightening as the augmentation family becomes more strictly label-preserving.'' We examine this empirically in the simulation study of \S\ref{sec:simulation}, where MELON recovers a synergy-only label $Y$ at $\mathrm{BalAcc} = 0.818$ while every external multi-omics method collapses to chance, confirming that the synergy term of $\mathcal{L}_{\mathrm{MELON}}$ is empirically active under our augmentation choices.
 
