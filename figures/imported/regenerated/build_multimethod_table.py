@@ -31,29 +31,30 @@ METRICS = [
     ("ari",         "ARI",      False, 3),
     ("nmi",         "NMI",      False, 3),
     ("ami",         "AMI",      False, 3),
-    ("mi",          "MI",       False, 3),
     ("homogeneity", "Homog.",   False, 3),
     ("v_measure",   "V-Meas.",  False, 3),
     ("spri",        "SpRI",     False, 3),
     ("spari",       "SpARI",    False, 3),
     ("fmi",         "FMI",      False, 3),
-    ("sc",          "SC",       False, 3),
     ("jaccard",     "Jaccard",  False, 3),
     ("chi",         "CHI",      False, 0),
     ("purity",      "Purity",   False, 3),
-    ("dbi",         r"DBI$\downarrow$", True, 3),
 ]
 
 
-def fmt(mean: float, sem: float, bold: bool, decimals: int) -> str:
-    body = f"{mean:.{decimals}f} \\pm {sem:.{decimals}f}"
+def _iqr(series: pd.Series) -> float:
+    return float(series.quantile(0.75) - series.quantile(0.25))
+
+
+def fmt(center: float, spread: float, bold: bool, decimals: int) -> str:
+    body = f"{center:.{decimals}f} \\pm {spread:.{decimals}f}"
     return f"$\\mathbf{{{body}}}$" if bold else f"${body}$"
 
 
 def main() -> None:
     d = pd.read_csv(CSV)
     agg = (d.groupby(["dataset", "method"])
-             .agg({m: ["mean", "sem"] for m, _, _, _ in METRICS}))
+             .agg({m: ["median", _iqr] for m, _, _, _ in METRICS}))
 
     n_metrics = len(METRICS)
     col_spec = "ll" + "c" * n_metrics
@@ -63,13 +64,12 @@ def main() -> None:
         r"\begin{table}[!htbp]",
         r"\centering",
         (r"\caption{Clustering metrics across the three benchmarked datasets, "
-         r"aggregated across cluster numbers $k$ (mean $\pm$ SE; "
+         r"aggregated across cluster numbers $k$ (median $\pm$ IQR; "
          r"$k\in\{6,8,10,12,14\}$ for Mouse E15.5 Brain and Human Lymph Node, "
-         r"$k\in\{10,12,14,16,18\}$ for Mouse E13 Embryo). Best mean per "
-         r"(dataset, metric) in \textbf{bold}; DBI is lower-is-better. "
-         r"MI: mutual information; SpRI/SpARI: spatial Rand / adjusted Rand "
-         r"index; FMI: Fowlkes--Mallows; SC: silhouette; CHI: "
-         r"Calinski--Harabasz; DBI: Davies--Bouldin.}"),
+         r"$k\in\{10,12,14,16,18\}$ for Mouse E13 Embryo). Best median per "
+         r"(dataset, metric) in \textbf{bold}. SpRI/SpARI: spatial Rand / "
+         r"adjusted Rand index; FMI: Fowlkes--Mallows; CHI: "
+         r"Calinski--Harabasz.}"),
         r"\label{tab:multimethod_metrics}",
         r"\scriptsize",
         r"\setlength{\tabcolsep}{2.5pt}",
@@ -85,13 +85,13 @@ def main() -> None:
         # For each metric, find the best method (max for higher-is-better, min for DBI).
         best = {}
         for col, _, lower_better, _ in METRICS:
-            means = {m: agg.loc[(ds, m), (col, "mean")] for m in METHOD_ORDER}
-            best[col] = (min if lower_better else max)(means, key=means.get)
+            medians = {m: agg.loc[(ds, m), (col, "median")] for m in METHOD_ORDER}
+            best[col] = (min if lower_better else max)(medians, key=medians.get)
         for i, m in enumerate(METHOD_ORDER):
             cells = []
             for col, _, _, dec in METRICS:
-                cells.append(fmt(agg.loc[(ds, m), (col, "mean")],
-                                 agg.loc[(ds, m), (col, "sem")],
+                cells.append(fmt(agg.loc[(ds, m), (col, "median")],
+                                 agg.loc[(ds, m), (col, "_iqr")],
                                  best[col] == m, dec))
             ds_label = (f"\\multirow{{{n_methods}}}{{*}}{{\\textit{{{ds}}}}}"
                         if i == 0 else "")
