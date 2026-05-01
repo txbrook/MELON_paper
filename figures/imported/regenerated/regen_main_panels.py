@@ -45,6 +45,9 @@ DISPLAY_NAME = {
     "totalvi": "TotalVI",
     "multigate": "MultiGate",
     "miso": "MISO",
+    "rna": "RNA (unimodal)",
+    "adt": "ADT (unimodal)",
+    "atac": "ATAC (unimodal)",
 }
 
 # Highlight MELON with a distinctive color; baselines share muted tones.
@@ -57,10 +60,13 @@ BAR_COLORS = {
     "mofaplus": "#A79A89",
     "mefisto": "#B0B1B6",
     "miso": "#99857E",
+    "rna": "#C7B89B",
+    "adt": "#B5A488",
+    "atac": "#B5A488",
 }
 
 PROJECT_ROOT = Path("/Users/morita/Library/CloudStorage/OneDrive-UTHealthHouston/MELON_master")
-REPO_ROOT = PROJECT_ROOT / "NeurIPS_MELON"
+REPO_ROOT = PROJECT_ROOT / "NeurIPS_MELON" / "manuscript"
 
 DATASETS = [
     {
@@ -71,6 +77,14 @@ DATASETS = [
         "truth_barcode_col": "barcode",
         "truth_label_col": "region_truth",
         "he_image": str(REPO_ROOT / "dataset_info/pic/he/E15_5-HE.jpg"),
+        "unimodal": [
+            {"key": "rna",
+             "csv": str(PROJECT_ROOT / "Unimodel/mouse_e15p5_raw/rna_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "rna_sanity_leiden"},
+            {"key": "atac",
+             "csv": str(PROJECT_ROOT / "Unimodel/mouse_e15p5_raw/atac_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "atac_sanity_leiden"},
+        ],
     },
     {
         "key": "human_lymph_node",
@@ -80,15 +94,31 @@ DATASETS = [
         "truth_barcode_col": "Barcode",
         "truth_label_col": "manual-anno",
         "he_image": str(REPO_ROOT / "dataset_info/pic/he/Human_pymph.png"),
+        "unimodal": [
+            {"key": "rna",
+             "csv": str(PROJECT_ROOT / "Unimodel/human_lymph_node_raw/rna_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "rna_sanity_leiden"},
+            {"key": "adt",
+             "csv": str(PROJECT_ROOT / "Unimodel/human_lymph_node_raw/adt_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "adt_sanity_leiden"},
+        ],
     },
     {
         "key": "mouse_embryo",
         "title": "Mouse E13 embryo",
         "input_csv": str(PROJECT_ROOT / "results/mouse_embryo_brain_compare_methods_with_melon.csv"),
-        "truth_csv": str(PROJECT_ROOT / "Mouse_Embryo/embryo_truth.csv"),
+        "truth_csv": "/Users/morita/Library/CloudStorage/OneDrive-UTHealthHouston/srtsim/labal_change/embryo/embryo_truth_updated.csv",
         "truth_barcode_col": "barcode",
         "truth_label_col": "cluster",
         "he_image": str(REPO_ROOT / "dataset_info/pic/he/Mouse_e13_embryo.png"),
+        "unimodal": [
+            {"key": "rna",
+             "csv": str(PROJECT_ROOT / "Unimodel/mouse_embryo_raw/rna_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "rna_sanity_leiden"},
+            {"key": "atac",
+             "csv": str(PROJECT_ROOT / "Unimodel/mouse_embryo_raw/atac_clusters.csv"),
+             "barcode_col": "barcode", "label_col": "atac_sanity_leiden"},
+        ],
     },
 ]
 
@@ -114,6 +144,28 @@ def load_dataset(cfg: dict):
             renamed[c] = lc
     df = df.rename(columns=renamed)
     method_cols = [renamed[c] for c in method_cols]
+
+    # Optional unimodal-baseline columns (RNA-only / ADT-only / ATAC-only Leiden).
+    # Each entry is merged on barcode and added as a new method column on df.
+    for uni in cfg.get("unimodal", []) or []:
+        ukey = uni["key"]
+        upath = Path(uni["csv"])
+        if not upath.exists():
+            print(f"[warn] {cfg['key']}: unimodal csv missing: {upath}")
+            continue
+        u = pd.read_csv(upath).set_index(uni["barcode_col"])[uni["label_col"]]
+        u = u.loc[u.index.intersection(df.index)]
+        if u.size == 0:
+            print(f"[warn] {cfg['key']}: no barcode overlap for unimodal '{ukey}'")
+            continue
+        df[ukey] = u.reindex(df.index)
+        if df[ukey].isna().any():
+            print(f"[warn] {cfg['key']}: {df[ukey].isna().sum()} barcodes missing in '{ukey}'")
+            df[ukey] = df[ukey].fillna(-1)
+        df[ukey] = df[ukey].astype(int)
+        if ukey not in method_cols:
+            method_cols.append(ukey)
+
     return df, truth, method_cols
 
 
@@ -176,10 +228,19 @@ def make_panel_c(cfg: dict):
         aligned, metrics = align_pred(truth, df[m], truth_labels, truth_to_idx)
         per_method[m] = {"aligned": aligned, "metrics": metrics}
 
-    # Layout: 2 rows x 5 cols. Col 0 = H&E (top) + Ground Truth (bottom).
-    # Cols 1..4 = 8 method panels.
-    methods_to_show = [m for m in MAIN_METHODS if m in per_method]
-    n_rows, n_cols = 2, 5
+    # Layout: 2 rows x N cols. Col 0 = H&E (top) + Ground Truth (bottom).
+    # Cols 1..N-1 = method panels. N expands to fit any unimodal baselines
+    # appended after MAIN_METHODS for this dataset.
+    # Unimodal baselines go first so they occupy column 1 (right after H&E/GT).
+    # Filling is column-major (top, bottom, top, bottom, ...) so each column
+    # holds a paired top/bottom set of two methods.
+    uni_keys = [u["key"] for u in (cfg.get("unimodal") or [])]
+    uni_present = [k for k in uni_keys if k in per_method]
+    multi_present = [m for m in MAIN_METHODS if m in per_method]
+    methods_to_show = uni_present + multi_present
+    n_rows = 2
+    n_method_cols = max(1, int(np.ceil(len(methods_to_show) / n_rows)))
+    n_cols = 1 + n_method_cols
 
     fig, axes = plt.subplots(
         n_rows, n_cols,
@@ -218,9 +279,9 @@ def make_panel_c(cfg: dict):
         spine.set_edgecolor("#BBBBBB")
         spine.set_linewidth(0.6)
 
-    # --- Cols 1..4: eight method panels in fixed order ---
+    # --- Cols 1..N-1: method panels, filled column-major so col 1 = unimodal pair ---
     for i, m in enumerate(methods_to_show):
-        r, c = divmod(i, n_cols - 1)
+        c, r = divmod(i, n_rows)
         ax = axes[r, c + 1]
         info = per_method[m]
         ax.scatter(x_plot, y_plot, c=info["aligned"],
@@ -234,9 +295,10 @@ def make_panel_c(cfg: dict):
             spine.set_edgecolor("#BBBBBB")
             spine.set_linewidth(0.6)
 
-    # Hide any unused method cells (there shouldn't be any with 8 methods).
+    # Hide any unused method cells (column-major fill, so the gaps end up at
+    # the bottom of the last column when the count is odd).
     for j in range(len(methods_to_show), (n_cols - 1) * n_rows):
-        r, c = divmod(j, n_cols - 1)
+        c, r = divmod(j, n_rows)
         axes[r, c + 1].axis("off")
 
     # Horizontal legend below the grid.
@@ -271,7 +333,9 @@ def make_panel_c(cfg: dict):
 def make_panel_d(cfg: dict, all_metrics: dict):
     """Grouped bar chart: x = metric, groups = methods. ARI is NOT shown here
     because it is already displayed in every Panel C subplot title."""
-    methods = [m for m in BAR_ORDER if m in all_metrics]
+    uni_keys = [u["key"] for u in (cfg.get("unimodal") or [])]
+    bar_order = list(BAR_ORDER) + [k for k in uni_keys if k not in BAR_ORDER]
+    methods = [m for m in bar_order if m in all_metrics]
     metric_names = PANEL_D_METRICS
 
     n_methods = len(methods)
